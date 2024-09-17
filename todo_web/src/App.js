@@ -43,6 +43,12 @@ const App = () => {
     fetch();
   };
 
+  // タスクを削除する関数
+  const destroyTask = async (id) => {
+    await axios.delete(`http://localhost:3001/tasks/${id}`);
+    fetch();
+  }
+
   // タスクのisDoneの状態を更新する関数
   const toggleIsDone = (index) => {
     // tasksのコピーを作成
@@ -77,11 +83,13 @@ const App = () => {
             {tasks.map((task, index) => {
               return (
                 <Task
+                  id={task.id}
                   key={index} // Reactではリストの要素にはkeyを設定する必要がある
                   index={index} // toggleIsDone関数の引数として使用する
                   name={task.name}
                   isDone={task.isDone}
                   toggleIsDone={toggleIsDone}
+                  destroyTask={destroyTask}
                 />
               );
             })}

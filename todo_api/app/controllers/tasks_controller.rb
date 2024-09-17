@@ -9,6 +9,12 @@ class TasksController < ApplicationController
     head :created # ヘッダーのステータスコードを返す
   end
 
+  def destroy
+    task = Task.find(params[:id])
+    task.destroy
+    head :ok
+  end
+
   private
 
   def task_params

@@ -1,9 +1,10 @@
-import { Checkbox, Box, Text } from "@chakra-ui/react";
+import { Checkbox, Flex, Text } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
 
 // 関数コンポーネントの定義
 const Task = (props) => {
   return (
-    <Box mb="16px">
+    <Flex mb="16px" justifyContent={"space-between"} alignItems={"center"}>
       <Checkbox
         isChecked={props.isDone} // チェックボックスの初期値を設定
         size="lg"
@@ -14,7 +15,8 @@ const Task = (props) => {
       >
         <Text>{props.name}</Text>
       </Checkbox>
-    </Box>
+      <CloseIcon onClick={() => props.destroyTask(props.id)} />
+    </Flex>
   );
 };
 

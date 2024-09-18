@@ -10,7 +10,7 @@ const Task = (props) => {
         size="lg"
         colorScheme="blue"
         onChange={() => {
-          props.toggleIsDone(props.index); // チェックボックスの状態を更新
+          props.toggleIsDone(props.id, props.index); // チェックボックスの状態を更新
         }}
       >
         <Text>{props.name}</Text>

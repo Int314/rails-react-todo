@@ -23,7 +23,6 @@ const App = () => {
   // axiosを使用してRailsとAPI通信を行い、tasksの値を取得する
   const fetch = async () => {
     const res = await axios.get("http://localhost:3001/tasks");
-    console.log(res);
     setTasks(res.data);
   };
 
@@ -49,15 +48,16 @@ const App = () => {
     fetch();
   }
 
-  // タスクのisDoneの状態を更新する関数
-  const toggleIsDone = (index) => {
-    // tasksのコピーを作成
-    // stateの値をsetState以外で直接更新してはいけないため
-    const tasksCopy = [...tasks];
-    const isDone = tasksCopy[index].isDone;
-    tasksCopy[index].isDone = !isDone;
-    setTasks(tasksCopy);
-  };
+  // タスクのis_doneを更新する関数
+  const toggleIsDone = async (id, index) => {
+    const isDone = tasks[index].is_done;
+    console.log(tasks[index]);
+    console.log(isDone);
+    await axios.put(`http://localhost:3001/tasks/${id}`, {
+      is_done: !isDone,
+    });
+    fetch();
+  }
 
   return (
     <Box mt="64px">
@@ -87,7 +87,7 @@ const App = () => {
                   key={index} // Reactではリストの要素にはkeyを設定する必要がある
                   index={index} // toggleIsDone関数の引数として使用する
                   name={task.name}
-                  isDone={task.isDone}
+                  isDone={task.is_done}
                   toggleIsDone={toggleIsDone}
                   destroyTask={destroyTask}
                 />
